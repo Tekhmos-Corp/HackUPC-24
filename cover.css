@@ -1,4 +1,30 @@
     /* Define CSS styles */
     body {
-      font-family: "Comic Sans MS", "Comic Sans", cursive;
+        height: 100vh;
+          background-image: url("https://buffet.tekhmos.com/void.jpg");
+
+    }
+
+    h1{
+      text-align: center;
+      font-size: 200;
+      
+    }
+
+
+
+    footer {
+      margin-top: auto;
+      background-color: limegreen;
+    }
+
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background-image: url('void.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
     }
