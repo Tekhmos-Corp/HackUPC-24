@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +10,54 @@
   <title>Buffet Manager</title>
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="cover.css">
+  <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
 </head>
 <body>
-
-
-  <h1>Buffet Manager</h1>
+  <div class="header">
+  <div class="two alt-two">
+    <h1>Buffet Manager
+      <span>Order with friends, seamlessly</span>
+    </h1>
+  </div>
+</div>
 <!-- Footer -->
 <!-- Footer -->
+
+
+<div class="arriba">
+  <form action="./crear.php" method="POST">
+    <fieldset>
+      <label for="fname"  class="lName">Username</label><br>
+      <input type="text" name="username" id="fname" placeholder="User"><br>
+
+      <input type="submit" name="create_room" value="Create Room" class="styled"> 
+    </fieldset>
+  </form> 
+  <form action="/action_page.php">
+    <fieldset>
+      <label for="code" class="lName">Room code</label><br>
+      <input type="number" id="code" name="code" class="noscroll" required><br>
+      <input type="submit" value="Join Room" class="styled"></input>
+    </fieldset>
+  </form>
+</div>
+<script>
+
+
+document.addEventListener("wheel", function(event){
+    if(document.activeElement.type === "number" &&
+       document.activeElement.classList.contains("noscroll"))
+    {
+        document.activeElement.blur();
+    }
+});
+  </script>
+
 <div class="wrapper">
 <footer class="bg-light text-center ">
+
+  <div class="bg-img">
   <!-- Grid container -->
   <div class="container p-4">
 
@@ -154,10 +197,13 @@
     <a class="text-dark" href="https://github.com/Tekhmos-Corp">Tekhmos Corp.</a>
   </div>
   <!-- Copyright -->
-
+</div>
 </footer>
 </div>
 <!-- Footer -->
+<!-- Footer -->
+</body>
+</html><!-- Footer -->
 <!-- Footer -->
 </body>
 </html>
