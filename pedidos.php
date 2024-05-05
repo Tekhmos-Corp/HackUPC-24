@@ -82,70 +82,15 @@
 </div>
 
 <div class="container">
-  <?php
-  
-  if(isset($_POST['room_code'])) {
-    
-    $servername = "localhost";
-    $username = "tekhmos";
-    $password = "Tekhmos12";
-    $dbname = "BadDays";
-
-    
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    
-    if ($conn->connect_error) {
-      die("Cant connect to DBMS: " . $conn->connect_error);
-    }
-
-    
-    $room_code = $_POST['room_code'];
-
-    
-    $sql = "SELECT pl.numero_plato, pl.comentario, u.nombre AS nombre_usuario, p.cantidad_pedido
-            FROM platos pl
-            INNER JOIN pedidos p ON pl.plato_id = p.plato_id
-            INNER JOIN usuarios u ON p.usuario_id = u.usuario_id
-            WHERE pl.room_code = '$room_code'";
-
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-      
-      echo "<table class='platos-table'>";
-      echo "<tr><th>Item</th><th>Info</th><th>User</th><th>Quantity</th></tr>";
-      while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>".$row["numero_plato"]."</td>";
-        echo "<td>".$row["comentario"]."</td>";
-        echo "<td>".$row["nombre_usuario"]."</td>";
-        echo "<td>".$row["cantidad_pedido"]."</td>";
-        echo "</tr>";
-      }
-      echo "</table>";
-    } else {
-      echo "<p>No orders found yet.</p>";
-    }
-
-    // Cerrar la conexión
-    $conn->close();
-  } else {
-    echo "<p>Room number not specified correctly.</p>";
-  }
-  ?>
+  <table id="platos-table" class='platos-table'>
+    <!-- Esta tabla se actualizará dinámicamente con los datos de la base de datos -->
+  </table>
 </div>
-
-
 
 <div class="fpedidos" id="footer">
   <form class="form-inline" action="./procesar_pedido.php" method="POST">
-
     <input type="hidden" name="room_code" value="<?php echo isset($_POST['room_code']) ? $_POST['room_code'] : ''; ?>">
-
-
     <input type="hidden" name="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>">
-
     <label for="num">Item Number</label>
     <input type="text" id="Nº" placeholder="A01" name="numero_plato" required maxlength="10">
     <label for="fn">Information</label>
@@ -154,13 +99,37 @@
     <input type="number" id="qn" placeholder="000" name="cantidad" required max="250" min="1">
     <button type="submit" name="submit">Add</button>
   </form>
-    <form class="form-inline" action="summary.php" method="GET">
-  <input type="hidden" name="room_code" value="<?php echo isset($_POST['room_code']) ? $_POST['room_code'] : ''; ?>">
-  <button type="submit" >Summary</button>
-
-
+  <form class="form-inline" action="summary.php" method="GET">
+    <input type="hidden" name="room_code" value="<?php echo isset($_POST['room_code']) ? $_POST['room_code'] : ''; ?>">
+    <button type="submit" >Summary</button>
   </form>
 </div>
+
+<script>
+  // Función para cargar la tabla de pedidos mediante AJAX
+  function loadPedidos() {
+    // Realizar una solicitud AJAX al servidor
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // Actualizar el contenido de la tabla con la respuesta del servidor
+        document.getElementById("platos-table").innerHTML = this.responseText;
+      }
+    };
+    xhr.open("GET", "list.php?room_code=<?php echo isset($_POST['room_code']) ? $_POST['room_code'] : ''; ?>", true);
+    xhr.send();
+  }
+
+  // Actualizar la tabla de pedidos cada 5 segundos
+  setInterval(function(){
+    loadPedidos();
+  }, 2000);
+
+  // Cargar la tabla de pedidos al cargar la página
+  window.onload = function() {
+    loadPedidos();
+  };
+</script>
 
 </body>
 </html>

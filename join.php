@@ -22,19 +22,27 @@ if(isset($_POST['room_code']) && isset($_POST['username'])) {
     }
 
    
-    $sql_check_room = "SELECT * FROM salas WHERE room_code = ?";
-    $stmt = $conn->prepare($sql_check_room);
-    $stmt->bind_param("i", $room_code);
+    $sql_check_user = "SELECT * FROM usuarios WHERE nombre = ? AND room_code = ?";
+    $stmt = $conn->prepare($sql_check_user);
+    $stmt->bind_param("si", $username, $room_code);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        
+      
+        echo '<form id="redirectForm" action="./pedidos.php" method="POST">';
+        echo '<input type="hidden" name="room_code" value="' . $room_code . '">';
+        echo '<input type="hidden" name="username" value="' . urlencode($username) . '">';
+        echo '</form>';
+        echo '<script>document.getElementById("redirectForm").submit();</script>';
+        exit;
+    } else {
+     
         $sql_insert_user = "INSERT INTO usuarios (nombre, room_code) VALUES (?, ?)";
         $stmt = $conn->prepare($sql_insert_user);
         $stmt->bind_param("si", $username, $room_code);
         if ($stmt->execute() === TRUE) {
-            
+     
             echo '<form id="redirectForm" action="./pedidos.php" method="POST">';
             echo '<input type="hidden" name="room_code" value="' . $room_code . '">';
             echo '<input type="hidden" name="username" value="' . urlencode($username) . '">';
@@ -44,11 +52,9 @@ if(isset($_POST['room_code']) && isset($_POST['username'])) {
         } else {
             echo "Error joining user to room: " . $conn->error;
         }
-    } else {
-        echo "Room does not exist. Please check the room code and try again. <a href='../'>Go back</a>";
     }
 
-    // Cerrar la conexión
+
     $conn->close();
 } else {
     echo "Error: Room code and username not specified. <a href='../.'>Go back</a>";
