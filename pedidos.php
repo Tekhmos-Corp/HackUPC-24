@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buffet base</title>
+  <title>Join&Eat Room 
+  <?php
+  
+  if(isset($_POST['room_code'])) {
+    echo $_POST['room_code']; 
+  } 
+  ?>
+  </title>
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="cover.css">
   <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
@@ -51,23 +58,23 @@
 <body>
 
 <div class="header">
-  <h1>Sala
+  <h1>Room
   <?php
-      // Verificar si se recibió el código de sala
+      
       if(isset($_POST['room_code'])) {
-        echo $_POST['room_code']; // Mostrar el número de sala
+        echo $_POST['room_code']; 
       } else {
-        echo "Error: No se especificó el código de sala.";
+        echo "Error RN4.";
       }
       ?>
     </span>
     <span style=" font-family: 'Space Grotesk'; color: black; font-size: 40%;">
         <?php
-        // Verificar si se recibió el nombre de usuario
+        
         if(isset($_POST['username'])) {
-            echo "Usuario: " . $_POST['username']; // Mostrar el nombre de usuario
+            echo "Username: " . $_POST['username']; 
         } else {
-            echo "Error: No se especificó el nombre de usuario.";
+            echo "Err UN4.";
         }
         ?>
     </span>
@@ -76,26 +83,26 @@
 
 <div class="container">
   <?php
-  // Verificar si se recibió el código de sala
+  
   if(isset($_POST['room_code'])) {
-    // Conexión a la base de datos (modifica con tus propios datos)
+    
     $servername = "localhost";
     $username = "tekhmos";
     $password = "Tekhmos12";
     $dbname = "BadDays";
 
-    // Crear conexión
+    
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Comprobar la conexión
+    
     if ($conn->connect_error) {
-      die("Conexión fallida: " . $conn->connect_error);
+      die("Cant connect to DBMS: " . $conn->connect_error);
     }
 
-    // Obtener el código de sala
+    
     $room_code = $_POST['room_code'];
 
-    // Consulta para obtener los platos pedidos en esta sala
+    
     $sql = "SELECT pl.numero_plato, pl.comentario, u.nombre AS nombre_usuario, p.cantidad_pedido
             FROM platos pl
             INNER JOIN pedidos p ON pl.plato_id = p.plato_id
@@ -105,9 +112,9 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-      // Mostrar la tabla de platos pedidos
+      
       echo "<table class='platos-table'>";
-      echo "<tr><th>Número</th><th>Nombre</th><th>Usuario</th><th>Cantidad</th></tr>";
+      echo "<tr><th>Item</th><th>Info</th><th>User</th><th>Quantity</th></tr>";
       while($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>".$row["numero_plato"]."</td>";
@@ -118,34 +125,40 @@
       }
       echo "</table>";
     } else {
-      echo "<p>No se encontraron platos pedidos en esta sala.</p>";
+      echo "<p>No orders found yet.</p>";
     }
 
     // Cerrar la conexión
     $conn->close();
   } else {
-    echo "<p>No se especificó el código de sala.</p>";
+    echo "<p>Room number not specified correctly.</p>";
   }
   ?>
 </div>
 
- <!-- Formulario para agregar platos -->
-<<!-- Formulario para agregar platos -->
-<div class="arriba" id="footer">
+
+
+<div class="fpedidos" id="footer">
   <form class="form-inline" action="./procesar_pedido.php" method="POST">
-    <!-- Campo oculto para recibir el código de sala -->
+
     <input type="hidden" name="room_code" value="<?php echo isset($_POST['room_code']) ? $_POST['room_code'] : ''; ?>">
 
-    <!-- Campo oculto para recibir el nombre de usuario -->
+
     <input type="hidden" name="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>">
 
-    <label for="num">Número de plato</label>
-    <input type="number" id="num" placeholder="Nº" name="numero_plato" required>
-    <label for="fn">Nombre del plato</label>
-    <input type="text" id="fn" placeholder="Nombre del plato" name="nombre_plato">
-    <label for="qn">Cantidad</label>
-    <input type="number" id="qn" placeholder="Cantidad" name="cantidad" required>
-    <button type="submit" name="submit">Agregar Plato</button>
+    <label for="num">Item Number</label>
+    <input type="text" id="Nº" placeholder="A01" name="numero_plato" required maxlength="10">
+    <label for="fn">Information</label>
+    <input type="text" id="fn" placeholder="" name="nombre_plato" maxlength="50">
+    <label for="qn">Quantity</label>
+    <input type="number" id="qn" placeholder="000" name="cantidad" required max="250" min="1">
+    <button type="submit" name="submit">Add</button>
+  </form>
+    <form class="form-inline" action="summary.php" method="GET">
+  <input type="hidden" name="room_code" value="<?php echo isset($_POST['room_code']) ? $_POST['room_code'] : ''; ?>">
+  <button type="submit" >Summary</button>
+
+
   </form>
 </div>
 

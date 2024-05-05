@@ -1,103 +1,72 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buffet Manager</title>
+  <title>Join&Eat</title>
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="cover.css">
   <link href='https://fonts.googleapis.com/css?family=Space Grotesk' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
 </head>
+
 <body>
   <div class="header">
-  <div class="two alt-two">
-    <h1>Buffet Manager
-      <span>Order with friends, seamlessly</span>
-    </h1>
-  </div>
-</div>
-<!-- Footer -->
-<!-- Footer -->
-
-
-<div class="arriba">
-  <form id="create-room-form" action="./crear.php" method="POST">
-    <fieldset>
-      <label for="fname" class="lName">Username</label><br>
-      <input type="text" name="username" id="fname" placeholder="User"><br>
-
-      <input type="submit" name="create_room" value="Create Room" class="styled">
-    </fieldset>
-  </form>
-  <form id="join-room-form" action="./join.php" method="POST">
-    <fieldset>
-      <label for="fname" class="lName">Username</label><br>
-      <input type="text" name="username" id="fname" placeholder="User"><br>
-
-      <label for="code" class="lName">Room code</label><br>
-      <input type="number" id="code" name="room_code" required placeholder="0000" min><br>
-      <!-- Campo oculto para enviar el nombre de usuario -->
-      <input type="submit" value="Join Room" class="styled">
-    </fieldset>
-  </form>
-</div>
-
-<script>
-  // Obtener el formulario de creación de sala
-  const createRoomForm = document.getElementById('create-room-form');
-  // Obtener el campo de nombre de usuario en el formulario de creación de sala
-  const usernameInput = createRoomForm.querySelector('input[name="username"]');
-  // Obtener el campo de nombre de usuario en el formulario de unirse a la sala
-  const joinUsernameInput = document.getElementById('join-username');
-  
-  // Agregar un evento de envío al formulario de creación de sala
-  createRoomForm.addEventListener('submit', function(event) {
-    // Actualizar el valor del campo de nombre de usuario en el formulario de unirse a la sala
-    document.getElementById('join-username').value = document.getElementById('fname').value;
-  });
-</script>
-
-<script>
-
-
-document.addEventListener("wheel", function(event){
-    if(document.activeElement.type === "number" &&
-       document.activeElement.classList.contains("noscroll"))
-    {
-        document.activeElement.blur();
-    }
-});
-  </script>
-
-<div class="wrapper">
-<footer class="bg-light text-center py-4">
-  <div class="container">
-    <div class="row">
-      <!-- Columna de texto -->
-      <div class="col-md-6">
-        <p class="mb-0">
-          Made with &lt;/&gt; during HackUPC24
-        </p>
-      </div>
-      <!-- Fin de la columna de texto -->
-      <!-- Columna de enlace -->
-      <div class="col-md-6">
-        <p class="mb-0">
-          <a href="https://github.com/Tekhmos-Corp" class="text-dark">Tekhmos Corp.</a>
-        </p>
-      </div>
-      <!-- Fin de la columna de enlace -->
+    <div class="two alt-two text-center">
+      <h1>Join&Eat
+        <span>Order with friends, seamlessly</span>
+      </h1>
     </div>
   </div>
-</footer>
 
-</div>
-<!-- Footer -->
-<!-- Footer -->
-</body>
-</html><!-- Footer -->
-<!-- Footer -->
+  <div class="arriba">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- create -->
+        <div class="col-md-6">
+          <form id="create-room-form" action="./crear.php" method="POST">
+            <fieldset>
+              <label for="create-username" class="lName">Username</label><br>
+              <input type="text" name="username" id="create-username" placeholder="User" class="form-control"><br>
+              <input type="submit" name="create_room" value="Create Room" class="styled btn btn-primary btn-block">
+            </fieldset>
+          </form>
+        </div>
+
+        <!-- join -->
+        <div class="col-md-6">
+          <form id="join-room-form" action="./join.php" method="POST">
+            <fieldset>
+              <label for="join-username" class="lName">Username</label><br>
+              <input type="text" name="username" id="join-username" placeholder="User" class="form-control"><br>
+              <label for="room-code" class="lName">Room code</label><br>
+              <input type="number" id="room-code" name="room_code" required placeholder="0000" min class="form-control"><br>
+              <input type="submit" value="Join Room" class="styled btn btn-primary btn-block">
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <footer class="bg-light text-center py-4 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0 footer-text">
+              Made with &lt;/&gt; @ HackUPC24
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p class="mb-0 footer-text">
+              <a href="https://github.com/Tekhmos-Corp" class="text-dark">Tekhmos Corp.</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
 </body>
 </html>
