@@ -8,8 +8,7 @@ Team members:
 - Momin Miah @s0dreams
 
 
-Try it out @ (http://buffet.tekhmos.com/)[http://buffet.tekhmos.com/]
-
+Try it out [here](http://buffet.tekhmos.com).
 
 
 
