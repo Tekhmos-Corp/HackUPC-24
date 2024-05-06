@@ -75,7 +75,7 @@ $sql_create_usuarios_table = "CREATE TABLE IF NOT EXISTS usuarios (
     FOREIGN KEY (room_code) REFERENCES salas(room_code)
 )";
 
-
+echo "Wrong data received.";
 // Cerrar la conexión
 $conn->close();
 ?>
