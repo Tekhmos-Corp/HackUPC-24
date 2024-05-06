@@ -66,11 +66,6 @@ $sql_create_salas_table = "CREATE TABLE IF NOT EXISTS salas (
     room_code INT(6) PRIMARY KEY
 )";
 
-if ($conn->query($sql_create_salas_table) === TRUE) {
-    echo "Table created.";
-} else {
-    echo "Table creation error " . $conn->error;
-}
 
 // Crear la tabla de usuarios en la base de datos
 $sql_create_usuarios_table = "CREATE TABLE IF NOT EXISTS usuarios (
@@ -80,11 +75,6 @@ $sql_create_usuarios_table = "CREATE TABLE IF NOT EXISTS usuarios (
     FOREIGN KEY (room_code) REFERENCES salas(room_code)
 )";
 
-if ($conn->query($sql_create_usuarios_table) === TRUE) {
-    echo "Usertable created succssfully.";
-} else {
-    echo "Error creating users table: " . $conn->error;
-}
 
 // Cerrar la conexión
 $conn->close();
