@@ -23,7 +23,7 @@ email: fardin@tekhmos.com
 description: >- # this means to ignore newlines until "baseurl:"
  Join&Eat team submission to HackUPC24
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "buffet.tekhmos.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://buffet.tekhmos.com" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  FardinA143
 
 # Build settings
