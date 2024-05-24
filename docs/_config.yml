@@ -28,6 +28,7 @@ github_username:  FardinA143
 
 # Build settings
 remote_theme: pages-themes/tactile@v0.2.0
+theme: tactile
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
